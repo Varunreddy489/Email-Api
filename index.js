@@ -41,14 +41,22 @@ app.post("/email", async (req, res) => {
     const toMail = "varunsannapureddy@gmail.com";
 
     if (!subject || !body || !fromEmail) {
-      return res.status(400).json({ error: "Subject, body, and fromEmail are required" });
+      return res
+        .status(400)
+        .json({ error: "Subject, body, and fromEmail are required" });
     }
 
     await sendEmail({ toMail, subject, body, fromEmail });
     res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to send email", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Failed to send email", details: error.message });
   }
+});
+
+app.get("/", async (req, res) => {
+  res.send({ message: "health Ok!" });
 });
 
 app.listen(PORT, () => {
